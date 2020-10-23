@@ -1,0 +1,13 @@
+services:
+  - mysql
+  CircleCI
+
+version: 2
+#jobs:
+#  build:
+#    docker:
+#      - image: circleci/openjdk:11-jdk
+#      - image: mysql
+#
+#    steps:
+#      - setup_remote_docker
