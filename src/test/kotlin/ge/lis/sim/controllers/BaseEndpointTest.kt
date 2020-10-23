@@ -19,7 +19,7 @@ import javax.inject.Inject
 @MicronautTest
 internal class BaseEndpointTest {
 
-    private val logger = LoggerFactory.getLogger("${javaClass.name}")
+    private val logger = LoggerFactory.getLogger(javaClass.name)
 
     @Inject
     @field:Client("/")
@@ -30,6 +30,16 @@ internal class BaseEndpointTest {
     fun testIndexRequest() {
         val request: HttpRequest<Any> = HttpRequest.GET("/")
         val body = client.toBlocking().retrieve(request)
+        Assertions.assertNotNull(body)
+        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
+        logger.info(body)
+    }
+
+    @Test
+    fun testNotFound() {
+        val request: HttpRequest<Any> = HttpRequest.GET("/foo")
+        val body = client.toBlocking().retrieve(request)
+        //HttpClientResponseException
         Assertions.assertNotNull(body)
         Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
         logger.info(body)
