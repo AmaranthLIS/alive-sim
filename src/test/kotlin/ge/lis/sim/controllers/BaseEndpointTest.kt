@@ -1,14 +1,22 @@
 package ge.lis.sim.controllers
 
+import ge.lis.sim.models.Card
+import ge.lis.sim.timeNow
+import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 /**
@@ -31,18 +39,17 @@ internal class BaseEndpointTest {
         val request: HttpRequest<Any> = HttpRequest.GET("/")
         val body = client.toBlocking().retrieve(request)
         Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
+        Assertions.assertEquals("Time is "+timeNow(), body)
         logger.info(body)
     }
 
     @Test
     fun testNotFound() {
-        val request: HttpRequest<Any> = HttpRequest.GET("/foo")
-        val body = client.toBlocking().retrieve(request)
-        //HttpClientResponseException
-        Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
-        logger.info(body)
+        try {
+            client.toBlocking().exchange(HttpRequest.GET<Any>("/foo/1680502395"), Argument.of(Card::class.java))
+        } catch (e: HttpClientResponseException) {
+            e.response.status == HttpStatus.UNAUTHORIZED
+        }
     }
 
     @Test
@@ -50,10 +57,26 @@ internal class BaseEndpointTest {
         val request: HttpRequest<Any> = HttpRequest.GET("$URL/list")
         val body = client.toBlocking().retrieve(request)
         Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
+//        Assertions.assertEquals(listOf(Card(1L, "test", "Country", "operator", 1L)), body)//cast body
+    }
+
+
+    @Test
+    fun testDeleteSuccess() {
+        val request: HttpRequest<Any> = HttpRequest.DELETE("$URL/item/1")
+        val body = client.toBlocking().retrieve(request)
+        Assertions.assertNotNull(body)
     }
 
     @Test
+    fun testUpdateCardSuccess() {
+        val request: HttpRequest<Any> = HttpRequest.PUT("$URL/item", Card(1L, "test", "Country", "operator", timeNow()))
+        val body = client.toBlocking().retrieve(request)
+        Assertions.assertNotNull(body)
+    }
+
+
+    /*@Test
     fun testGetListNotifications() {
         val request: HttpRequest<Any> = HttpRequest.GET("/api/notification/list")
         val body = client.toBlocking().retrieve(request)
@@ -61,27 +84,6 @@ internal class BaseEndpointTest {
         Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
     }
 
-    @Test
-    fun testUpdateItem() {
-        val request: HttpRequest<Any> = HttpRequest.POST("$URL/item", listOf(""))
-        val body = client.toBlocking().retrieve(request)
-        Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
-    }
-
-    @Test
-    fun testDelete() {
-        val request: HttpRequest<Any> = HttpRequest.DELETE("$URL/item")
-        val body = client.toBlocking().retrieve(request)
-        Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
-    }
-
-    @Test
-    fun testCreate() {
-        val request: HttpRequest<Any> = HttpRequest.PUT("$URL/item", listOf(""))
-        val body = client.toBlocking().retrieve(request)
-        Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+LocalDateTime.now(), body)
-    }
+    fun getListPayments()
+    */
 }
