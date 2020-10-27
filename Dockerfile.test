@@ -1,17 +1,13 @@
 FROM gradle:6.5.0-jdk14
 
-ENV ROOt_FOLDER alive_sim
-
+ENV ROOT_FOLDER alive_sim
+COPY --from=0 . /$ROOT_FOLDER
+#COPY --chown=gradle:gradle . /$ROOt_FOLDER
 USER root
-RUN mkdir /$ROOt_FOLDER && chown gradle: /$ROOt_FOLDER
-
+RUN chown -R gradle /$ROOT_FOLDER
+#RUN mkdir /$ROOt_FOLDER && chown gradle: /$ROOt_FOLDER
 USER gradle
-COPY --chown=gradle:gradle . /$ROOt_FOLDER
-
-WORKDIR $ROOt_FOLDER
+WORKDIR /$ROOT_FOLDER
 
 CMD["gradlew", "cleanTest", "test", "-Dmicronaut.environments=test"]
-
-#COPY build/libs/KeepALiveSIM--*-all.jar keepSim.jar
-#EXPOSE 8080
-#CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar keepSim.jar
+#RUN ./gradlew build
