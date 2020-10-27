@@ -1,4 +1,17 @@
-FROM adoptopenjdk/openjdk11-openj9:jdk-11.0.1.13-alpine-slim
-COPY build/libs/KeepALiveSIM--*-all.jar keepSim.jar
-EXPOSE 8080
-CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar keepSim.jar
+FROM gradle:6.5.0-jdk14
+
+ENV ROOt_FOLDER alive_sim
+
+USER root
+RUN mkdir /$ROOt_FOLDER && chown gradle: /$ROOt_FOLDER
+
+USER gradle
+COPY --chown=gradle:gradle . /$ROOt_FOLDER
+
+WORKDIR $ROOt_FOLDER
+
+CMD["gradlew", "cleanTest", "test", "-Dmicronaut.environments=test"]
+
+#COPY build/libs/KeepALiveSIM--*-all.jar keepSim.jar
+#EXPOSE 8080
+#CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar keepSim.jar
