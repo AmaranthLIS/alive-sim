@@ -11,6 +11,6 @@ fun main(args: Array<String>) {
 		.start()
 }
 
-fun timeNow(): Long {
+fun today(): Long {
 	return LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
 }
