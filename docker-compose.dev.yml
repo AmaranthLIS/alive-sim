@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  # docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+  mysql:
+    image: "library/mysql:8.0.22"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: keep_sim
+      MYSQL_USER: simuser
+      MYSQL_PASSWORD: simpassword
+#  postgres:
+#    image: "postgres:12.3"
+#    environment:
+#      POSTGRES_USER: simuser
+#      POSTGRES_PASSWORD: simpassword
+#      POSTGRES_DB: keep_sim
+#    ports:
+#    - 5432:5432
