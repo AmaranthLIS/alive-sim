@@ -1,6 +1,10 @@
 version: '3.3'
 services:
-  # docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+  keep-sim-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["sh", "-c", "gradle --no-daemon run --fail-fast --console plain"]
   mysql:
     image: "library/mysql:8.0.22"
     environment:
