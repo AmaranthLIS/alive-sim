@@ -2,12 +2,12 @@ package ge.lis.sim.controllers
 
 import ge.lis.sim.models.Card
 import ge.lis.sim.models.Res
-import ge.lis.sim.timeNow
+import ge.lis.sim.today
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
-import java.time.LocalDateTime
+
 
 /**
  * Created by
@@ -20,7 +20,7 @@ class BaseEndpoint {
     @Get("/")
     @Produces(MediaType.TEXT_PLAIN)
     fun index() : String {
-        return "Time is " + timeNow()
+        return "Time is " + today()
     }
 
     @Get("/time")
@@ -28,7 +28,7 @@ class BaseEndpoint {
         val m = HashMap<String, Any>()
         m["status"] = 401
         m["error"] = "Unauthorized"
-        m["message"] = timeNow()
+        m["message"] = today()
         return HttpResponse.status<Any>(HttpStatus.OK).body(m)
 // return HttpResponse.ok(Card("test", ""))
     }
@@ -54,7 +54,7 @@ class SimEndpoint {
 
     @Post("/item")
     fun createCard(@Body card: Card) : HttpResponse<*> {
-        if (card.expire < timeNow())
+        if (card.expire < today())
             return HttpResponse.badRequest(Res(1))
         return HttpResponse.ok(Res())
     }

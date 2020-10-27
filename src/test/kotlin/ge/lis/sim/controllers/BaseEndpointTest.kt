@@ -1,10 +1,9 @@
 package ge.lis.sim.controllers
 
 import ge.lis.sim.models.Card
-import ge.lis.sim.timeNow
+import ge.lis.sim.today
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
-import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
@@ -15,8 +14,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 import org.slf4j.LoggerFactory
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import javax.inject.Inject
 
 /**
@@ -39,7 +36,7 @@ internal class BaseEndpointTest {
         val request: HttpRequest<Any> = HttpRequest.GET("/")
         val body = client.toBlocking().retrieve(request)
         Assertions.assertNotNull(body)
-        Assertions.assertEquals("Time is "+timeNow(), body)
+        Assertions.assertEquals("Time is "+today(), body)
         logger.info(body)
     }
 
@@ -70,7 +67,7 @@ internal class BaseEndpointTest {
 
     @Test
     fun testUpdateCardSuccess() {
-        val request: HttpRequest<Any> = HttpRequest.PUT("$URL/item", Card(1L, "test", "Country", "operator", timeNow()))
+        val request: HttpRequest<Any> = HttpRequest.PUT("$URL/item", Card(1L, "test", "Country", "operator", today()))
         val body = client.toBlocking().retrieve(request)
         Assertions.assertNotNull(body)
     }

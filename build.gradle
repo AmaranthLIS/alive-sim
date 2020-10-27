@@ -42,12 +42,17 @@ dependencies {
     implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
     implementation("io.micronaut.sql:micronaut-jdbi")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-//    implementation("io.micronaut:micronaut-validator")
+//    implementation("io.micronaut:micronaut-hibernate-validator")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.14.3"))
     testRuntimeOnly("org.testcontainers:mysql")
+
+//    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+//    testImplementation("org.junit.jupiter:junit-jupiter-api")
+//    testImplementation("io.micronaut.test:micronaut-test-junit5:2.2.0")
+//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
 
 mainClassName = "ge.lis.sim.ApplicationKt"

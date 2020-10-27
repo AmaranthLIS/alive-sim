@@ -1,8 +1,7 @@
 package ge.lis.sim.models
 
-import ge.lis.sim.timeNow
+import ge.lis.sim.today
 import kotlinx.serialization.*
-import kotlinx.serialization.json.*
 
 /**
  * Created by
@@ -12,9 +11,9 @@ import kotlinx.serialization.json.*
 @Serializable
 data class Card(val id: Long, val title: String, val country: String, val operator: String = "", var expire: Long = 0, var createdAt: Long = 0) {
     constructor(id: Long, title: String, country: String, operator: String, expire: Long) : this(id, title, country) {
-        createdAt = timeNow()
+        createdAt = today()
     }
     constructor(id: Long, title: String, country: String, expire: Long) : this(id, title, country) {
-        createdAt = timeNow()
+        createdAt = today()
     }
 }
