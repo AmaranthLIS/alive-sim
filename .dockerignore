@@ -1,0 +1,9 @@
+build
+*/out*
+.gradle
+*.idea
+*.iml
+README.md
+Dockerfile
+docker-compose.dev.yml
+.gitignore

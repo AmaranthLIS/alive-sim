@@ -1,10 +1,12 @@
 version: '3.3'
 services:
   keep-sim-api:
+    user: root
     build:
       context: .
-      dockerfile: Dockerfile
-    command: ["sh", "-c", "gradle --no-daemon run --fail-fast --console plain"]
+      dockerfile: Dockerfile.test
+    command: ["sh", "-c", "./gradlew --no-daemon test --fail-fast --console plain --stacktrace"]
+  # docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
   mysql:
     image: "library/mysql:8.0.22"
     environment:
