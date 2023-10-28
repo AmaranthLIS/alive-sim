@@ -1,15 +1,13 @@
 package ge.lis.sim
 
-import io.micronaut.runtime.Micronaut.*
+import io.micronaut.runtime.Micronaut.run
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 fun main(args: Array<String>) {
-	build()
-	    .args(*args)
-		.packages("ge.lis.sim")
-		.start()
+	run(*args)
 }
+
 
 
 fun today(): Long {

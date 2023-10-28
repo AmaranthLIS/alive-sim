@@ -25,12 +25,7 @@ class BaseEndpoint {
 
     @Get("/time")
     fun list() : HttpResponse<*> {
-        val m = HashMap<String, Any>()
-        m["status"] = 401
-        m["error"] = "Unauthorized"
-        m["message"] = today()
-        return HttpResponse.status<Any>(HttpStatus.OK).body(m)
-// return HttpResponse.ok(Card("test", ""))
+        return HttpResponse.ok("ok")
     }
 }
 
@@ -53,7 +48,7 @@ class SimEndpoint {
     }
 
     @Post("/item")
-    fun createCard(@Body card: Card) : HttpResponse<*> {
+    fun createCard(card: Card) : HttpResponse<*> {
         if (card.expire < today())
             return HttpResponse.badRequest(Res(1))
         return HttpResponse.ok(Res())

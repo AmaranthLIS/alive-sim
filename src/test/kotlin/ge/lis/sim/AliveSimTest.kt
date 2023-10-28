@@ -1,12 +1,13 @@
 package ge.lis.sim
+
 import io.micronaut.runtime.EmbeddedApplication
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @MicronautTest
-class KeepALiveSIMTest {
+class AliveSimTest {
 
     @Inject
     lateinit var application: EmbeddedApplication<*>
