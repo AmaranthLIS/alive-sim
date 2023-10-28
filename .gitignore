@@ -43,7 +43,17 @@ hs_err_pid*
 
 .idea
 
+target/
+out/
+.micronaut/
 Snap*
+*.ipr
+*.iws
+.project
+.settings
+.classpath
+.factorypath
+
 javacore*
 jitdump*
 tmp
