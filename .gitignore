@@ -1,5 +1,5 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Gradle template
+Thumbs.db
+.DS_Store
 .gradle
 **/build/
 !src/**/build/
@@ -46,7 +46,8 @@ hs_err_pid*
 target/
 out/
 .micronaut/
-Snap*
+.idea
+*.iml
 *.ipr
 *.iws
 .project

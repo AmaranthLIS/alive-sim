@@ -3,4 +3,4 @@ defaultPackage: ge.lis.sim
 testFramework: junit
 sourceLanguage: kotlin
 buildTool: gradle
-features: [annotation-api, app-name, flyway, gradle, graphql, http-client, jdbc-hikari, junit, kotlin, kotlin-application, kotlin-extension-functions, logback, management, micrometer, micrometer-prometheus, mysql, netty-server, properties, readme, shade, sql-jdbi, testcontainers]
+features: [app-name, config4k, flyway, gradle, http-client-test, jackson-databind, jackson-xml, jdbc-hikari, jib, junit, kotlin, kotlin-application, kotlin-extension-functions, ksp, logback, management, micronaut-aot, micronaut-build, micronaut-http-validation, mysql, netty-server, readme, retry, serialization-jackson, shade, sql-jdbi, test-resources, validation]
