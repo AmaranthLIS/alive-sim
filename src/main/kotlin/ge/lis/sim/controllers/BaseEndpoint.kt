@@ -7,7 +7,7 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
-
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 /**
  * Created by
@@ -32,8 +32,11 @@ class BaseEndpoint {
 @Controller("/api/sim")
 class SimEndpoint {
 
+    private val logger = KotlinLogging.logger {}
+
     @Get("/list")
     fun index() : Any {
+        logger.debug { "Get list of Cards!" }
         return listOf(Card(1L,"test", "Counter", "operator", 1L))
     }
 
