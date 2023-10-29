@@ -1,0 +1,34 @@
+language: java
+install: skip
+
+os: linux
+dist: trusty
+jdk: oraclejdk17
+
+script:
+  - ./gradlew build -x test -x check --no-daemon
+#  - ./gradlew build -x test --scan -s
+
+env:
+  - MICRONAUT_ENV=prod
+
+
+services:
+  - docker
+  - mysql
+
+#jobs:
+#  build:
+#    docker:
+#      - image: circleci/openjdk:17-jdk
+#      - image: mysql
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  bundler: true
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
