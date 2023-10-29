@@ -10,10 +10,7 @@ import kotlinx.serialization.*
  */
 @Serializable
 data class Card(val id: Long, val title: String, val country: String, val operator: String = "", var expire: Long = 0, var createdAt: Long = 0) {
-    constructor(id: Long, title: String, country: String, operator: String, expire: Long) : this(id, title, country) {
-        createdAt = today()
-    }
-    constructor(id: Long, title: String, country: String, expire: Long) : this(id, title, country) {
-        createdAt = today()
-    }
+    constructor(id: Long, title: String, country: String, operator: String, expire: Long) : this(id, title, country, operator = operator, expire = expire, createdAt = today())
+
+    constructor(id: Long, title: String, country: String, expire: Long) : this(id, title, country, operator = "", expire = expire, createdAt = today())
 }
